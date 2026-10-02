@@ -24,17 +24,17 @@ import {
 import { addOns, faqs, hours, navItems, site } from './data/siteData';
 
 const assets = {
-  hero: '/manus-storage/async-images/wOhhnXoVP5sEqL3ez5OvBN/image-1.webp',
-  team: '/manus-storage/async-images/wOhhnXoVP5sEqL3ez5OvBN/image-2.webp',
-  salon: '/manus-storage/async-images/wOhhnXoVP5sEqL3ez5OvBN/image-3.webp',
-  groom: '/manus-storage/async-images/wOhhnXoVP5sEqL3ez5OvBN/image-4.webp',
-  pets: '/manus-storage/async-images/wOhhnXoVP5sEqL3ez5OvBN/image-5.webp',
+  hero: 'https://aka.doubaocdn.com/s/wCgHacIUBM',
+  team: 'https://aka.doubaocdn.com/s/iU3IbNQSJz',
+  salon: 'https://aka.doubaocdn.com/s/Rm6DkjDzv5',
+  groom: 'https://aka.doubaocdn.com/s/VBdRaqcqOp',
+  pets: 'https://aka.doubaocdn.com/s/VZ0hMWsz3i',
 };
 
 function Wordmark() {
   return (
     <Link className="wordmark" to="/" aria-label={`${site.fullName} home`}>
-      <img src="/sage-suds-mark.svg" alt="" />
+      <img src={`${import.meta.env.BASE_URL}sage-suds-mark.svg`} alt="" />
       <span><b>Sage</b> <i>&amp;</i> Suds<small>Pet Grooming</small></span>
     </Link>
   );
