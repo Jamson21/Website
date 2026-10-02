@@ -21,11 +21,11 @@ export const navItems = [
 ];
 
 export const hours = [
-  ['Mon', '9AM–5PM'],
-  ['Tue', '9AM–5PM'],
-  ['Wed', '9AM–5PM'],
-  ['Thu', '9AM–5PM'],
-  ['Fri', '9AM–5PM'],
+  ['Mon', '8:30AM–6:30PM'],
+  ['Tue', '8:30AM–6:30PM'],
+  ['Wed', '8:30AM–6:30PM'],
+  ['Thu', '8:30AM–6:30PM'],
+  ['Fri', '8:30AM–6:30PM'],
   ['Sat', '9AM–4PM'],
   ['Sun', 'Closed'],
 ];

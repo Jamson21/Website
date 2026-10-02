@@ -123,7 +123,7 @@ function HomePage() {
 
     <section className="testimonial-section"><div className="quote-mark">“</div><div><Eyebrow>Kind words, coming soon</Eyebrow><blockquote>“We’re saving this space for the lovely things our first Sunset Groomers families have to say.”</blockquote><p>— A future neighbor &amp; their very good dog</p></div><div className="stars">{Array.from({ length: 5 }).map((_, i) => <Star key={i} size={18} fill="currentColor" />)}</div></section>
 
-    <section className="contact-cta" id="contact"><div><Eyebrow>Come say hello</Eyebrow><h2>Find your pet’s new favorite place.</h2><p>{site.address} <span>·</span> {site.postal}</p><p><Clock3 size={17} /> Mon–Fri 9AM–5PM <span>·</span> Sat 9AM–4PM</p></div><Link className="button" to="/contact">Contact the salon <ArrowRight size={17} /></Link></section>
+    <section className="contact-cta" id="contact"><div><Eyebrow>Come say hello</Eyebrow><h2>Find your pet’s new favorite place.</h2><p>{site.address} <span>·</span> {site.postal}</p><p><Clock3 size={17} /> Mon–Fri 8:30AM–6:30PM <span>·</span> Sat 9AM–4PM</p></div><Link className="button" to="/contact">Contact the salon <ArrowRight size={17} /></Link></section>
   </>;
 }
 
