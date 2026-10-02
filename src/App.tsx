@@ -1,5 +1,5 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { Link, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Component, FormEvent, ReactNode, useEffect, useState } from 'react';
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import {
   ArrowRight,
   CalendarDays,
@@ -34,7 +34,7 @@ const assets = {
 function Wordmark() {
   return (
     <Link className="wordmark" to="/" aria-label={`${site.fullName} home`}>
-      <img src={`${import.meta.env.BASE_URL}sage-suds-mark.svg`} alt="" />
+      <img src="https://aka.doubaocdn.com/s/IUGUG7w1aG" alt="" />
       <span><b>Sunset</b> Groomers<small>Pet Grooming</small></span>
     </Link>
   );
@@ -44,7 +44,9 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  useEffect(() => setIsOpen(false), [location.pathname]);
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   return (
     <header className="site-header">
@@ -82,10 +84,14 @@ function Footer() {
   );
 }
 
-function Layout({ children }: { children: React.ReactNode }) {
+function Layout({ children }: { children: ReactNode }) {
   const location = useLocation();
-  useEffect(() => window.scrollTo(0, 0), [location.pathname]);
-  return <><NavigationGuard /><Header /><main>{children}</main><Link className="floating-book" to="/book"><CalendarDays size={17} /> Book now</Link><Footer /></>;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  return <><Header /><main>{children}</main><Link className="floating-book" to="/book"><CalendarDays size={17} /> Book now</Link><Footer /></>;
 }
 
 function Eyebrow({ children }: { children: React.ReactNode }) { return <p className="eyebrow"><span></span>{children}</p>; }
@@ -97,29 +103,22 @@ function SectionIntro({ eyebrow, title, body, centered = false }: { eyebrow: str
   return <div className={`section-intro ${centered ? 'centered' : ''}`}><Eyebrow>{eyebrow}</Eyebrow><h2>{title}</h2>{body && <p>{body}</p>}</div>;
 }
 
-function NavigationGuard() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const onClick = (e: MouseEvent) => {
-      if (e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
-      const target = e.target as Element | null;
-      if (!target || typeof target.closest !== 'function') return;
-      const anchor = target.closest('a[href^="#/"]') as HTMLAnchorElement | null;
-      if (!anchor) return;
-      const href = anchor.getAttribute('href') || '';
-      const path = href.slice(1) || '/';
-      const current = window.location.hash.slice(1) || '/';
-      if (current === path) return;
-      e.preventDefault();
-      window.setTimeout(() => {
-        const now = window.location.hash.slice(1) || '/';
-        if (now !== path) navigate(path);
-      }, 0);
-    };
-    document.addEventListener('click', onClick, true);
-    return () => document.removeEventListener('click', onClick, true);
-  }, [navigate]);
-  return null;
+class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  state = { hasError: false };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: '80px 24px', textAlign: 'center', fontFamily: 'system-ui, sans-serif' }}>
+          <h2>Something went wrong.</h2>
+          <p>Please refresh the page to continue browsing.</p>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
 }
 
 function HomePage() {
@@ -224,7 +223,7 @@ function LegalPage({ type }: { type: 'privacy' | 'terms' }) {
 function NotFound() { return <PageHero eyebrow="Lost a little?" title="Let’s get you back to the salon." description="The page you were looking for has wandered off. Try our home page or book an appointment." />; }
 
 function App() {
-  return <Layout><Routes><Route path="/" element={<HomePage />} /><Route path="/services" element={<ServicesPage />} /><Route path="/book" element={<BookingPage />} /><Route path="/team" element={<TeamPage />} /><Route path="/gallery" element={<GalleryPage />} /><Route path="/about" element={<AboutPage />} /><Route path="/faq" element={<FAQPage />} /><Route path="/contact" element={<ContactPage />} /><Route path="/privacy" element={<LegalPage type="privacy" />} /><Route path="/terms" element={<LegalPage type="terms" />} /><Route path="*" element={<NotFound />} /></Routes></Layout>;
+  return <ErrorBoundary><Layout><Routes><Route path="/" element={<HomePage />} /><Route path="/services" element={<ServicesPage />} /><Route path="/book" element={<BookingPage />} /><Route path="/team" element={<TeamPage />} /><Route path="/gallery" element={<GalleryPage />} /><Route path="/about" element={<AboutPage />} /><Route path="/faq" element={<FAQPage />} /><Route path="/contact" element={<ContactPage />} /><Route path="/privacy" element={<LegalPage type="privacy" />} /><Route path="/terms" element={<LegalPage type="terms" />} /><Route path="*" element={<NotFound />} /></Routes></Layout></ErrorBoundary>;
 }
 
 export default App;
