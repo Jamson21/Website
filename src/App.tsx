@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
   CalendarDays,
@@ -85,7 +85,7 @@ function Footer() {
 function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   useEffect(() => window.scrollTo(0, 0), [location.pathname]);
-  return <><Header /><main>{children}</main><Link className="floating-book" to="/book"><CalendarDays size={17} /> Book now</Link><Footer /></>;
+  return <><NavigationGuard /><Header /><main>{children}</main><Link className="floating-book" to="/book"><CalendarDays size={17} /> Book now</Link><Footer /></>;
 }
 
 function Eyebrow({ children }: { children: React.ReactNode }) { return <p className="eyebrow"><span></span>{children}</p>; }
@@ -95,6 +95,31 @@ function PageHero({ eyebrow, title, description }: { eyebrow: string; title: str
 function DemoNote() { return <p className="demo-note"><Sparkles size={15} /> This is a launch-ready demo. Replace the salon details, map and booking link with your live information; gallery visuals are original brand concept assets, not client photos.</p>; }
 function SectionIntro({ eyebrow, title, body, centered = false }: { eyebrow: string; title: string; body?: string; centered?: boolean }) {
   return <div className={`section-intro ${centered ? 'centered' : ''}`}><Eyebrow>{eyebrow}</Eyebrow><h2>{title}</h2>{body && <p>{body}</p>}</div>;
+}
+
+function NavigationGuard() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      const target = e.target as Element | null;
+      if (!target || typeof target.closest !== 'function') return;
+      const anchor = target.closest('a[href^="#/"]') as HTMLAnchorElement | null;
+      if (!anchor) return;
+      const href = anchor.getAttribute('href') || '';
+      const path = href.slice(1) || '/';
+      const current = window.location.hash.slice(1) || '/';
+      if (current === path) return;
+      e.preventDefault();
+      window.setTimeout(() => {
+        const now = window.location.hash.slice(1) || '/';
+        if (now !== path) navigate(path);
+      }, 0);
+    };
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, [navigate]);
+  return null;
 }
 
 function HomePage() {
