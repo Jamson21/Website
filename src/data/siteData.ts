@@ -1,11 +1,11 @@
 export const site = {
-  name: 'Sage & Suds',
-  fullName: 'Sage & Suds Pet Grooming',
-  city: 'Portland, OR',
-  address: '1234 Pawprint Lane',
-  postal: 'Portland, OR 97205',
-  phone: '(503) 555-0147',
-  email: 'hello@sageandsuds.example',
+  name: 'Sunset Groomers',
+  fullName: 'Sunset Groomers',
+  city: 'Santa Cruz, CA',
+  address: '233 Sunset Ave',
+  postal: 'Santa Cruz, CA 95060',
+  phone: '(831) 346-9217',
+  email: 'hello@sunsetgroomers.example',
   bookingUrl: '#booking-demo',
 };
 
