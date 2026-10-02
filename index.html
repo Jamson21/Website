@@ -6,6 +6,16 @@
     <meta name="theme-color" content="#A9B9A1" />
     <meta name="description" content="Gentle, transparent pet grooming for dogs and cats." />
     <title>Sunset Groomers</title>
+    <script>
+      (function () {
+        var base = '/Website/';
+        var path = location.pathname;
+        if (!location.hash && path !== base) {
+          var rest = path.slice(base.length).replace(/^\/+/, '');
+          location.replace(base + '#/' + rest + location.search);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

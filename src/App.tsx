@@ -75,7 +75,7 @@ function Footer() {
         <div className="footer-brand"><Wordmark /><p>Gentle care, clear communication, and a calmer grooming day for every pet.</p><p className="demo-inline">Demo business information — replace before launch.</p></div>
         <div><h4>Visit</h4><Link to="/contact"><MapPin size={15} /> {site.address}<br />{site.postal}</Link><a href={`tel:${site.phone.replace(/\D/g, '')}`}><Phone size={15} /> {site.phone}</a><a href={`mailto:${site.email}`}><Mail size={15} /> {site.email}</a></div>
         <div><h4>Salon hours</h4><div className="hours-mini">{hours.map(([day, time]) => <p key={day}><span>{day}</span><b>{time}</b></p>)}</div></div>
-        <div><h4>Follow along</h4><a href="#instagram"><Camera size={16} /> Instagram</a><a href="#facebook"><Globe size={16} /> Facebook</a><h4 className="footer-links-title">Explore</h4><Link to="/services">Services</Link><Link to="/faq">FAQ</Link></div>
+        <div><h4>Follow along</h4><a href="https://www.instagram.com" target="_blank" rel="noreferrer"><Camera size={16} /> Instagram</a><a href="https://www.facebook.com" target="_blank" rel="noreferrer"><Globe size={16} /> Facebook</a><h4 className="footer-links-title">Explore</h4><Link to="/services">Services</Link><Link to="/faq">FAQ</Link></div>
       </div>
       <div className="footer-bottom"><span>© 2026 {site.fullName}. Demo design.</span><span><Link to="/privacy">Privacy Policy</Link><Link to="/terms">Terms &amp; Booking Policy</Link></span></div>
     </footer>
